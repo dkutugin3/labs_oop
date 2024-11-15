@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 2.8)
+project(hello_world) # Название проекта
+set(SOURCE_EXE main.cpp)
+# Установка переменной со списком исходников для исполняемого файла
+set(SOURCE_LIB foo.cpp)
+# Тоже самое, но для библиотеки
+add_library(foo STATIC ${SOURCE_LIB})
+# Создание статической библиотеки с именем foo
+add_executable(main ${SOURCE_EXE})
+# Создает исполняемый файл с именем main
+target_link_libraries(main foo) # Линковка программы с библиотекой
+
+
+cmake_minimum_required(VERSION 3.2)
+project(hl_event_server C CXX)
+SET (EXAMPLE_BINARY "event_server")
+find_package(OpenSSL)
+find_package(Threads)
+find_package(Boost COMPONENTS filesystem system program_options regex REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+add_executable(${EXAMPLE_BINARY} main.cpp
+config/config.cpp
+database/database.cpp
+database/cache.cpp
+database/author.cpp)
+target_include_directories(${EXAMPLE_BINARY} PRIVATE "${CMAKE_BINARY_DIR}")
+target_compile_options(${EXAMPLE_BINARY} PRIVATE -Wall -Wextra -pedantic -Werror )
+target_link_libraries(${EXAMPLE_BINARY} PRIVATE
+${CMAKE_THREAD_LIBS_INIT}
+${Boost_LIBRARIES})
+set_target_properties(${EXAMPLE_BINARY} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${EXAMPLE_BINARY} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
