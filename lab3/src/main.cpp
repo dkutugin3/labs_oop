@@ -1,29 +1,33 @@
 #include <iostream>
 #include <vector>
+#include "../include/hexagon.hpp"
+#include "../include/octagon.hpp"
 #include "../include/pentagon.hpp"
 
 void addFigureMenu(std::vector<Figure*>& Figures) {
     char command;
     while (true) {
-        std::cout << "\nДобавить фигуру (f - 5-угольник, s - 6-угольник , o - 8-угольник, q - вернуться в меню): ";
+        std::cout << "\nДобавить фигуру (f - 5-угольник, s - 6-угольник , o - "
+                     "8-угольник, q - вернуться в меню): ";
         std::cin >> command;
         Figure* fig = nullptr;
-        if (command == 'q') break;
+        if (command == 'q')
+            break;
         switch (command) {
-            case 'f': 
+            case 'f':
                 fig = new Pentagon();
                 break;
-            case 's': 
-                fig = new Pentagon();
+            case 's':
+                fig = new Hexagon();
                 break;
-            case 'o': 
-                fig = new Pentagon();
+            case 'o':
+                fig = new Octagon();
                 break;
             default:
                 std::cout << "Неверный символ" << std::endl;
                 return;
         }
-        
+
         std::cout << "Введите координаты вершин фигуры:\n";
         std::cin >> *fig;
         Figures.push_back(fig);
@@ -31,13 +35,11 @@ void addFigureMenu(std::vector<Figure*>& Figures) {
     }
 }
 
-
-void cleanUp (std::vector<Figure*>& Figures) {
+void cleanUp(std::vector<Figure*>& Figures) {
     for (auto& fig : Figures) {
         delete fig;
     }
 }
-
 
 void manageFiguresMenu(std::vector<Figure*>& Figures) {
     if (Figures.empty()) {
@@ -48,33 +50,39 @@ void manageFiguresMenu(std::vector<Figure*>& Figures) {
     int command;
     while (true) {
         std::cout << "\nМеню взаимодействия с фигурами:\n"
-        "1 - Вывести список фигур\n"
-        "2 - Узнать центр и площадь фигуры\n"
-        "3 - Вычислить общую площадь всех фигур\n"
-        "4 - Удалить фигуру\n"
-        "5 - Вернуться в главное меню\n"
-        "Выберите действие: ";
+                     "1 - Вывести список фигур\n"
+                     "2 - Узнать центр и площадь фигуры\n"
+                     "3 - Вычислить общую площадь всех фигур\n"
+                     "4 - Удалить фигуру\n"
+                     "5 - Вернуться в главное меню\n"
+                     "Выберите действие: ";
         std::cin >> command;
 
-        if (command == 5) break;
+        if (command == 5)
+            break;
 
         switch (command) {
             case 1: {
                 std::cout << "Список фигур:\n";
                 for (size_t i = 0; i < Figures.size(); ++i) {
-                    std::cout << "Фигура " << i + 1 << ": " << *Figures[i] << "\n";
+                    std::cout << "Фигура " << i + 1 << ": " << *Figures[i]
+                              << "\n";
                 }
                 break;
             }
             case 2: {
                 size_t index;
-                std::cout << "Введите номер фигуры (1-" << Figures.size() << "): ";
+                std::cout << "Введите номер фигуры (1-" << Figures.size()
+                          << "): ";
                 std::cin >> index;
 
                 if (index > 0 && index <= Figures.size()) {
                     Figure::Dot center = Figures[index - 1]->center();
-                    std::cout << "Центр: (" << center.x << ", " << center.y << ")\n";
-                    std::cout << "Площадь: " << static_cast<double>(*Figures[index - 1]) << "\n";
+                    std::cout << "Центр: (" << center.x << ", " << center.y
+                              << ")\n";
+                    std::cout << "Площадь: "
+                              << static_cast<double>(*Figures[index - 1])
+                              << "\n";
                 } else {
                     std::cout << "Некорректный индекс.\n";
                 }
@@ -90,7 +98,8 @@ void manageFiguresMenu(std::vector<Figure*>& Figures) {
             }
             case 4: {
                 size_t index;
-                std::cout << "Введите номер фигуры для удаления (1-" << Figures.size() << "): ";
+                std::cout << "Введите номер фигуры для удаления (1-"
+                          << Figures.size() << "): ";
                 std::cin >> index;
 
                 if (index > 0 && index <= Figures.size()) {
@@ -115,13 +124,14 @@ int main() {
 
     while (true) {
         std::cout << "\nМеню:\n"
-        "1 - Добавить фигуру\n"
-        "2 - Взаимодействовать с фигурами\n"
-        "3 - Выйти\n"
-        "Выберите действие: ";
+                     "1 - Добавить фигуру\n"
+                     "2 - Взаимодействовать с фигурами\n"
+                     "3 - Выйти\n"
+                     "Выберите действие: ";
         std::cin >> command;
 
-        if (command == 3) break;
+        if (command == 3)
+            break;
         switch (command) {
             case 1:
                 addFigureMenu(Figures);
@@ -135,6 +145,6 @@ int main() {
         }
     }
 
-    cleanUp (Figures);
+    cleanUp(Figures);
     return 0;
 }

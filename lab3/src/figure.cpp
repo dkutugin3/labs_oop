@@ -1,7 +1,7 @@
 #include "../include/figure.hpp"
 #include <cmath>
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 std::ostream& operator<<(std::ostream& stream, const Figure& fig) {
     return fig.write(stream);
 }
@@ -26,7 +26,8 @@ Figure::operator double() const {
 
 Figure::Dot Figure::center() const {
     Dot center;
-    center.x, center.y = 0.0, 0.0;
+    center.x = 0.0;
+    center.y = 0.0;
     for (int i = 0; i < n; ++i) {
         Dot& dot = peak[i];
         center.x += dot.x;
@@ -40,7 +41,7 @@ Figure::Dot Figure::center() const {
 Figure& Figure::operator=(const Figure& other) {
     if (n != other.n) {
         std::cerr << "Warning: Figures have different sizes!" << std::endl;
-        return *this; 
+        return *this;
     }
     if (this != &other) {
         for (int i = 0; i < n; ++i) {
@@ -53,7 +54,7 @@ Figure& Figure::operator=(const Figure& other) {
 Figure& Figure::operator=(Figure&& other) noexcept {
     if (n != other.n) {
         std::cerr << "Warning: Figures have different sizes!" << std::endl;
-        return *this; 
+        return *this;
     }
     if (this != &other) {
         delete[] peak;
@@ -79,7 +80,7 @@ bool Figure::operator!=(const Figure& other) const {
     return !(*this == other);
 }
 
-std::ostream& Figure::write(std::ostream &stream) const {
+std::ostream& Figure::write(std::ostream& stream) const {
     for (int i = 0; i < n; ++i) {
         Dot& dot = peak[i];
         stream << " (" << dot.x << "," << dot.y << ")";
@@ -88,8 +89,7 @@ std::ostream& Figure::write(std::ostream &stream) const {
     return stream;
 }
 
-
-std::istream& Figure::read(std::istream &stream) {
+std::istream& Figure::read(std::istream& stream) {
     for (int i = 0; i < n; ++i) {
         Dot& dot = peak[i];
         stream >> dot.x >> dot.y;

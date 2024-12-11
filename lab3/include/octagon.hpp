@@ -1,11 +1,11 @@
 #ifndef Octagon_h
 #define Octagon_h
 
-#include "figure.hpp"
 #include <iostream>
+#include "figure.hpp"
 class Octagon : public Figure {
-public:
-    Octagon(){
+   public:
+    Octagon() {
         n = 8;
         peak = new Dot[n];
     }

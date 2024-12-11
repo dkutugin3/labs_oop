@@ -1,13 +1,13 @@
 #ifndef Pentagon_h
 #define Pentagon_h
 
-#include "figure.hpp"
 #include <iostream>
+#include "figure.hpp"
 class Pentagon : public Figure {
-public:
-    Pentagon(){
+   public:
+    Pentagon() {
         n = 5;
         peak = new Dot[n];
-    }    
+    }
 };
 #endif
